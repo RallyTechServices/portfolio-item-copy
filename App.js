@@ -15,7 +15,8 @@ Ext.define('CustomApp', {
             task : ["State","Estimate","TaskIndex","ToDo","Actuals"],
             preserve_rank: true,
             allow_current_project: false,
-            ignore_state: false
+            ignore_state: false,
+            custom_field_to_hold_formattedid: 'c_ExternalID' // currently uses the same field name for all record types
         }
     },
 
@@ -309,7 +310,7 @@ Ext.define('CustomApp', {
                         "portfolioitem" :
                         item.get("_type");
         
-        reference_fields = ['Release','Iteration','Owner'];
+        var reference_fields = ['Release','Iteration','Owner'];
 
         Ext.Array.each( this.fieldsToCopy[type], function(field) {
             var item_release = this._getRelease(item);
@@ -319,6 +320,11 @@ Ext.define('CustomApp', {
                 copy[field] = item.get(field);
             }
         }, this);
+        
+        var old_id_field = app.getSetting('custom_field_to_hold_formattedid');
+        if ( !Ext.isEmpty(old_id_field) ) {
+            copy[old_id_field] = item.get('FormattedID');
+        }
 
         // handle tags.
         if (item.get("Tags").Count > 0) {

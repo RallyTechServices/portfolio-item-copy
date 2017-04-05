@@ -1,5 +1,10 @@
 portfolio-item-copy
 =========================
+## **fid_variant**
+
+This is a variant that copies the FormattedID to an existing field in the 
+target copy.  This is on a branch called *fid_variant*.  
+
 
 ## Overview
 
